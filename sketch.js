@@ -69,7 +69,7 @@ function draw() {
     size += increment;
     pop();
   }
-  noLoop();
+  //noLoop();
 }
 
 function windowResized() {
