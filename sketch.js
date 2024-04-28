@@ -2,6 +2,7 @@
 let x = 200;
 let y = 200;
 let increment = 0.01;
+
 let xPos = 0;
 let yPos = 0;
 let size = 0.5;
@@ -34,20 +35,21 @@ function draw() {
   // Dark Rect
   rect;
   push();
-  fill(random(70));
+  // fill(random(70));
+  fill(30);
   rectMode(CENTER);
   rect(width / 2, height / 2, width - 200, height - 400);
-  push();
+  pop();
 
   //Long Rectangles
   push();
-  rect;
-
-  fill(random(150));
-  noStroke();
-  rectMode(CENTER);
-  rect(width / 5, height / 2, width - 2000, height - 400);
-  pop();
+  for (let i = 0; i < 5; i++) {
+    fill(random(100));
+    noStroke();
+    rectMode(CENTER);
+    rect((i * width) / 5 + width / 10, height / 2, width - 2020, height - 400);
+    pop();
+  }
 
   //Pink Dimond
   for (let i = 0; i < 20; i++) {
@@ -58,7 +60,7 @@ function draw() {
     rotate(QUARTER_PI);
     stroke("#fc354c");
     noFill();
-    strokeWeight(2);
+    strokeWeight(2.5);
 
     // scale(mouseY / 100);
     square(xPos, yPos, 37 * i, size);
@@ -69,6 +71,30 @@ function draw() {
     size += increment;
     pop();
   }
+
+  //Blue Dimond
+  for (let i = 0; i < 25; i++) {
+    for (let j = 0; j < 1; j++) {
+      // squares
+      push();
+      rectMode(CENTER);
+      translate(width / 5, height / 5);
+      rotate(QUARTER_PI);
+      stroke("#0abfbc");
+      noFill();
+      strokeWeight(2.5);
+
+      // scale(mouseY / 100);
+      square(xPos * i, (frameCount / yPos) * 7, 37 * i, size);
+      // square(frameCount, 100, 10 * i);
+
+      // xPos -= 0.001;
+      // yPos -= 0.001;
+      size += increment;
+      pop();
+    }
+  }
+
   //noLoop();
 }
 
