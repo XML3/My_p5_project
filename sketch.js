@@ -1,7 +1,7 @@
 //Global
 let x = 200;
 let y = 200;
-let increment = 0.01;
+let increment = 0.006;
 
 let xPos = 0;
 let yPos = 0;
@@ -43,6 +43,7 @@ function draw() {
 
   //Long Rectangles
   push();
+
   for (let i = 0; i < 5; i++) {
     fill(random(100));
     noStroke();
@@ -73,24 +74,31 @@ function draw() {
   }
 
   //Blue Dimond
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < 40; i++) {
     for (let j = 0; j < 1; j++) {
       // squares
       push();
-      rectMode(CENTER);
-      translate(width / 5, height / 5);
-      rotate(QUARTER_PI);
+      rectMode(CORNER);
+      translate(width / 2, height / 2);
+      // rotate(QUARTER_PI);
+      rotate(radians(frameCount / 4));
       stroke("#0abfbc");
       noFill();
-      strokeWeight(2.5);
+      strokeWeight(1);
 
       // scale(mouseY / 100);
-      square(xPos * i, (frameCount / yPos) * 7, 37 * i, size);
-      // square(frameCount, 100, 10 * i);
+      // square(xPos * i, (frameCount / yPos) * 7, 37 * i, size);
+      square(xPos * i, yPos, 3.5 * i, size, 2.5);
 
       // xPos -= 0.001;
       // yPos -= 0.001;
       size += increment;
+
+      noFill();
+      stroke(random(120));
+      strokeWeight(1);
+      ellipseMode(CENTER);
+      ellipse(xPos - width / 50, yPos, 40 * i, 1705);
       pop();
     }
   }
