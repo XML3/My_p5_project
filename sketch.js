@@ -143,6 +143,9 @@ function draw() {
     }
   }
 
+  //Capture images for video
+  // saveCanvas("Volumes/LaCie/video/frames", "png");
+
   noLoop();
 }
 
