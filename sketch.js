@@ -1,17 +1,37 @@
 //Global
 let x = 200;
 let y = 200;
-let increment = 0.006;
-
+let increment = 0.008;
+//position and size
 let xPos = 0;
 let yPos = 0;
 let size = 0.5;
+//video section
+let videoRed, videoSmoke;
+let redStripesPath = "/red.mp4";
+let smokePath = "/smke.mp4";
+let w = 700;
+let h = 500;
+
+//pre-load videos
+function preload() {
+  videoRed = createVideo(redStripesPath);
+  videoSmoke = createVideo(smokePath);
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1);
   xPos = windowWidth / 150;
   yPos = windowHeight / 150;
+  //Video Section
+  videoArray = [videoRed, videoSmoke];
+  // iterate over both videos to loop, mute and hide
+  for (let i = 0; i < videoArray.length; i++) {
+    videoArray[i].volume(0); // mute
+    videoArray[i].hide(); // hide initial video
+    videoArray[i].loop(); //loop videos
+  }
 }
 
 function draw() {
@@ -41,34 +61,37 @@ function draw() {
   rect(width / 2, height / 2, width - 200, height - 400);
   pop();
 
+  //video
+  push();
+  image(videoRed, xPos * 10, yPos * 37, w, h);
+  image(videoSmoke, xPos * 85, yPos * 37, w, h);
+  pop();
+
   //Long Rectangles
   push();
 
   for (let i = 0; i < 5; i++) {
-    fill(random(100));
+    fill(random(80));
     noStroke();
     rectMode(CENTER);
     rect((i * width) / 5 + width / 10, height / 2, width - 2020, height - 400);
-    pop();
+    // pop();
   }
-
-  //Pink Dimond
+  pop();
+  //Pink or Red Dimond
   for (let i = 0; i < 20; i++) {
     // squares
     push();
     rectMode(CENTER);
     translate(width / 2, height / 2);
     rotate(QUARTER_PI);
-    stroke("#fc354c");
+
+    stroke(249, 4, 51, 150);
+
     noFill();
-    strokeWeight(2.5);
+    strokeWeight(3);
 
-    // scale(mouseY / 100);
-    square(xPos, yPos, 37 * i, size);
-    // square(frameCount, 100, 10 * i);
-
-    // xPos -= 0.03;
-    // yPos -= 0.03;
+    square(xPos, yPos, 17 * i, size);
     size += increment;
     pop();
   }
@@ -78,22 +101,23 @@ function draw() {
     for (let j = 0; j < 1; j++) {
       // squares
       push();
-      rectMode(CORNER);
+      rectMode(CENTER);
       translate(width / 2, height / 2);
-      // rotate(QUARTER_PI);
+      // rotate(QUARTER_PI / 4);
       rotate(radians(frameCount / 4));
-      stroke("#0abfbc");
+      stroke(210, 210, 210, 220);
       noFill();
-      strokeWeight(1);
+      strokeWeight(5);
 
       // scale(mouseY / 100);
-      // square(xPos * i, (frameCount / yPos) * 7, 37 * i, size);
-      square(xPos * i, yPos, 3.5 * i, size, 2.5);
+      square(xPos * i, yPos, 4 * j, size);
+      // square(xPos, yPos, 18 * i, size);
 
       // xPos -= 0.001;
       // yPos -= 0.001;
       size += increment;
 
+      //ellipse
       noFill();
       stroke(random(120));
       strokeWeight(1);
