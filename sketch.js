@@ -127,7 +127,7 @@ function draw() {
     }
   }
 
-  //noLoop();
+  noLoop();
 }
 
 function windowResized() {
