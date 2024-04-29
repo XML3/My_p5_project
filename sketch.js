@@ -37,7 +37,7 @@ function setup() {
 function draw() {
   push();
   loadPixels();
-
+  //Perlin Noise (TV white noise) Section / Background
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
       let index = (x + y * width) * 4;
@@ -127,7 +127,7 @@ function draw() {
     }
   }
 
-  noLoop();
+  //noLoop();
 }
 
 function windowResized() {
