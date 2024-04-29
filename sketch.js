@@ -2,14 +2,20 @@
 let x = 200;
 let y = 200;
 let increment = 0.008;
+
 //position and size
 let xPos = 0;
 let yPos = 0;
 let size = 0.5;
+// Red Diamond animation / to be mapped
+let minSize = 0.5; // Min size of the shape
+let maxSize = 17 * 20; // Max size of the shape
+let sizeChange = 0.5; // Amount to change the size by
+
 //video section
 let videoRed, videoSmoke;
-let redStripesPath = "/red.mp4";
-let smokePath = "/smke.mp4";
+let redStripesPath = "/p5_red.mp4";
+let smokePath = "/p5_smoke.mp4";
 let w = 700;
 let h = 500;
 
@@ -71,7 +77,7 @@ function draw() {
   push();
 
   for (let i = 0; i < 5; i++) {
-    fill(random(80));
+    fill(random(150, 20, 20, 20));
     noStroke();
     rectMode(CENTER);
     rect((i * width) / 5 + width / 10, height / 2, width - 2020, height - 400);
@@ -79,22 +85,32 @@ function draw() {
   }
   pop();
   //Pink or Red Dimond
-  for (let i = 0; i < 20; i++) {
-    // squares
-    push();
-    rectMode(CENTER);
-    translate(width / 2, height / 2);
-    rotate(QUARTER_PI);
+  // for (let i = 0; i < 20; i++) {
+  // squares
+  push();
+  rectMode(CENTER);
+  translate(width / 2, height / 2);
+  rotate(QUARTER_PI);
+  stroke(249, 4, 51, 150);
+  noFill();
+  strokeWeight(1);
 
-    stroke(249, 4, 51, 150);
-
-    noFill();
-    strokeWeight(3);
-
-    square(xPos, yPos, 17 * i, size);
-    size += increment;
-    pop();
+  //mapp the size of shape from min to max using sine function
+  let mappedSize = map(sin(frameCount * increment), -1, 1, minSize, maxSize);
+  //square(xPos, yPos, mappedSize);
+  //calculate the radius for the circles
+  let squareRadius = mappedSize / 2;
+  // Draw squares inside the shape
+  for (let i = 0; i < 200; i++) {
+    let angle = map(i, 15, 150, 0, TWO_PI);
+    let squareX = xPos + cos(angle) * squareRadius;
+    let squareY = yPos + sin(angle) * squareRadius;
+    square(squareX, squareY, size);
   }
+  // square(xPos, yPos, 17 * i, size);
+  //size += increment;
+  pop();
+  // }
 
   //Blue Dimond
   for (let i = 0; i < 40; i++) {
@@ -127,7 +143,7 @@ function draw() {
     }
   }
 
-  //noLoop();
+  noLoop();
 }
 
 function windowResized() {
